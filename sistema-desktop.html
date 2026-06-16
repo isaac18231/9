@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login do Cliente | Gestão Digital Funcional</title>
+    <link rel="stylesheet" href="css/sistema-desktop.css">
+</head>
+<body>
+    <main class="auth-shell">
+        <section class="auth-hero">
+            <p class="eyebrow">Gestao Digital Funcional</p>
+            <h1>Entre na sua conta ou crie seu acesso</h1>
+            <p class="auth-copy">
+                Acompanhe solicitações, envie mensagens e gerencie seu atendimento em um só lugar.
+            </p>
+
+            <div class="auth-highlights">
+                <div class="highlight-card">
+                    <strong>Acesso rapido</strong>
+                    <span>Login simples para clientes ativos.</span>
+                </div>
+                <div class="highlight-card">
+                    <strong>Cadastro seguro</strong>
+                    <span>Crie sua conta para acompanhar seus pedidos.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="auth-panel">
+            <div class="tabs" aria-label="Opcoes de acesso">
+                <button class="tab-button is-active" type="button" data-tab-target="login-form">Login</button>
+                <button class="tab-button" type="button" data-tab-target="cadastro-form">Cadastro</button>
+            </div>
+
+            <form id="login-form" class="auth-form is-active">
+                <h2>Entrar</h2>
+                <label>
+                    <span>Nome</span>
+                    <input type="text" name="nome" placeholder="Seu nome" required>
+                </label>
+                <label>
+                    <span>E-mail</span>
+                    <input type="email" name="email" placeholder="cliente@exemplo.com" required>
+                </label>
+                <label>
+                    <span>Senha</span>
+                    <input type="password" name="senha" placeholder="Digite sua senha" required>
+                </label>
+                <button class="button-primary" type="submit">Fazer login</button>
+            </form>
+
+            <form id="cadastro-form" class="auth-form">
+                <h2>Criar conta</h2>
+                <label>
+                    <span>Nome completo</span>
+                    <input type="text" name="nome" placeholder="Seu nome" required>
+                </label>
+                <label>
+                    <span>E-mail</span>
+                    <input type="email" name="email" placeholder="cliente@exemplo.com" required>
+                </label>
+                <label>
+                    <span>Senha</span>
+                    <input type="password" name="senha" placeholder="Crie uma senha" required>
+                </label>
+                <button class="button-primary" type="submit">Cadastrar</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        const tabButtons = document.querySelectorAll(".tab-button");
+        const forms = document.querySelectorAll(".auth-form");
+        const loginForm = document.getElementById("login-form");
+        const cadastroForm = document.getElementById("cadastro-form");
+
+        tabButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const targetId = button.dataset.tabTarget;
+
+                tabButtons.forEach((item) => item.classList.remove("is-active"));
+                forms.forEach((form) => form.classList.remove("is-active"));
+
+                button.classList.add("is-active");
+                document.getElementById(targetId).classList.add("is-active");
+            });
+        });
+
+        loginForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(loginForm);
+            const clientData = {
+                nome: String(formData.get("nome") || "").trim(),
+                email: String(formData.get("email") || "").trim()
+            };
+
+            localStorage.setItem("clienteDados", JSON.stringify(clientData));
+            window.location.href = "index.html";
+        });
+
+        cadastroForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(cadastroForm);
+            const clientData = {
+                nome: String(formData.get("nome") || "").trim(),
+                email: String(formData.get("email") || "").trim()
+            };
+
+            localStorage.setItem("clienteDados", JSON.stringify(clientData));
+            window.location.href = "index.html";
+        });
+    </script>
+</body>
+</html>
